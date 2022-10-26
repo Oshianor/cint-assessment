@@ -48,9 +48,27 @@ There are some configuration files that you pay attention to like
 
 ## Documentation
 
-For this project, Since the addition was code was just a VPC setup,
+There are new infra modules for every resources created from the VPC, ALB, ASG, RDS Aurora to SG.
+ To run apply this project on AWS, some resources takes precedence due to dependency on other resources.
+ However you can plan out the infra without any resources been deployed.
+Below is the mapped out structure on how to apply the infra.
 
 ```bash
-  npm install my-project
-  cd my-project
+terragrunt run-all plan
+
+cd cint-assessment/product_account/eu-west-2/rd/vpc
+terragrunt apply -auto-approve
+
+cd ../sg
+terragrunt run-all apply -auto-approve
+
+cd ../asg
+terragrunt apply -auto-approve
+
+cd ../alb
+terragrunt apply -auto-approve
+
+cd ../storage/aurora
+terragrunt apply -auto-approve
+
 ```
