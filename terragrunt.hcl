@@ -64,6 +64,11 @@ remote_state {
     region         = "${local.aws_region}"
     encrypt        = true
     dynamodb_table = "terraform-rd-locks"
+
+    # uncomment this block to use assume role
+    # role_arn       = "${local.arn_role}"
+    # profile        = "${local.aws_profile}"
+
   }
 }
 
@@ -75,6 +80,12 @@ generate "provider" {
   contents  = <<EOF
 provider "aws" {
   region  = "${local.aws_region}"
+
+  # uncomment this block to use assume role
+  #profile = "${local.aws_profile}"
+  #assume_role {
+  # role_arn = "${local.arn_role}"
+  #}
 
   default_tags {
     tags = ${jsonencode(local.tags)}
